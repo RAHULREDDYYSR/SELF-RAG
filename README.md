@@ -176,18 +176,10 @@ Below is a visual representation of the LangGraph pipeline used in SELF\_RAG:
 Planned improvements for SELF\_RAG:
 
 * [ ] Add multi-turn conversation memory
-* [ ] Integrate web search for document retrieval
-* [ ] Build a web-based UI for monitoring the pipeline
-* [ ] Use other grading models (Claude, Gemini, Mixtral)
 * [ ] Support long context inputs (e.g. via Claude 3 or GPT-4-turbo)
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
 
 ## 🙌 Acknowledgments
 

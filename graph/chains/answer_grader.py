@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+
 load_dotenv()
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
@@ -6,14 +7,13 @@ from langchain_openai import ChatOpenAI
 from langchain_core.runnables import RunnableSequence
 
 
-
-
 class GradeAnswer(BaseModel):
     """Binary score for correctness of answer."""
+
     binary_score: str = Field(description="Answer is correct, 'yes' or 'no'")
 
 
-llm = ChatOpenAI(model='gpt-4o-mini')
+llm = ChatOpenAI(model="gpt-4o-mini")
 structured_llm_grader = llm.with_structured_output(GradeAnswer)
 
 system = """you are a grader assessing whether an answer addresses / resolves a question. \n

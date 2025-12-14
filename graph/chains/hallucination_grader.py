@@ -3,12 +3,15 @@ from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
 from langchain_core.runnables import RunnableSequence
 
-llm = ChatOpenAI(model='gpt-4o-mini')
+llm = ChatOpenAI(model="gpt-4o-mini")
+
 
 class GradeHallucination(BaseModel):
     """Binary score for hallucination present in generation answer."""
 
-    binary_score: str = Field(description="Answer is grounded in the facts, 'yes' or 'no'")
+    binary_score: str = Field(
+        description="Answer is grounded in the facts, 'yes' or 'no'"
+    )
 
 
 structured_llm_grader = llm.with_structured_output(GradeHallucination)
@@ -19,7 +22,10 @@ system = """You are a grader assessing whether an LLM generation is grounded in 
 hallucination_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", system),
-        ("human", "LLM generation: \n\n {generation} \n\n Retrieved facts: {documents}"),
+        (
+            "human",
+            "LLM generation: \n\n {generation} \n\n Retrieved facts: {documents}",
+        ),
     ]
 )
 

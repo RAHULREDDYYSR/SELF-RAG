@@ -1,4 +1,4 @@
-RETRIEVE = 'retrieve'
-GRADE_DOCUMENTS = 'grade_documents'
+RETRIEVE = "retrieve"
+GRADE_DOCUMENTS = "grade_documents"
 GENERATE = "generate"
 WEBSEARCH = "websearch"

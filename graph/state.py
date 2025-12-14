@@ -1,5 +1,6 @@
 from typing import List, TypedDict
 
+
 class GraphState(TypedDict):
     """
     Represents the state of our graph
@@ -9,6 +10,7 @@ class GraphState(TypedDict):
         web_search: whether to add search
         documents: list of documents
     """
+
     question: str
     generation: str
     web_search: bool

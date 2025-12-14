@@ -1,7 +1,7 @@
-# Corrective Retrieval-Augmented Generation (C-RAG)
+# Self-Reflective Retrieval-Augmented Generation (Self-RAG)
 
-🚀 **C-RAG** is an implementation of the *Corrective Retrieval-Augmented Generation* (C-RAG) workflow, inspired by the paper [Corrective Retrieval Augmented Generation (2024)](https://arxiv.org/pdf/2401.15884).  
-It intelligently **retrieves**, **grades**, and **generates** high-quality answers by correcting irrelevant retrieved information via web search if necessary.
+🚀 **Self-RAG** is an implementation of the *Self-Reflective Retrieval-Augmented Generation* (Self-RAG) workflow using **LangGraph**, inspired by the paper [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection (2023)](https://arxiv.org/abs/2310.11511).  
+It intelligently **retrieves**, **grades**, and **generates** high-quality answers through self-reflection, correcting irrelevant retrieved information via web search if necessary.
 
 ---
 
@@ -22,21 +22,22 @@ It intelligently **retrieves**, **grades**, and **generates** high-quality answe
 
 Traditional Retrieval-Augmented Generation (RAG) systems sometimes retrieve **irrelevant documents**, leading to poor generation quality.
 
-**C-RAG** enhances this process by:
-- **Grading** retrieved documents for relevance.
+**Self-RAG** enhances this process by:
+- **Self-reflection** to assess the quality and relevance of retrieved documents.
+- **Grading** retrieved documents for relevance using LLM-based evaluation.
 - **Performing web search** if necessary to correct irrelevant retrievals.
 - **Generating** a final answer based on the corrected knowledge base.
 
-Additionally, this project uses a **vector store (ChromaDB)** for document storage and retrieval.
+Additionally, this project uses a **vector store (ChromaDB)** for document storage and retrieval, and **LangGraph** to orchestrate the self-reflective workflow.
 
 ---
 
 ## 🧠 Architecture
 
-The project builds a **graph workflow** consisting of the following nodes:
+The project builds a **LangGraph workflow** consisting of the following nodes:
 
 - **Retrieve** → Fetch documents from a vector database (ChromaDB).
-- **Grade Documents** → Grade each document for relevance (binary yes/no).
+- **Grade Documents** → Self-reflect and grade each document for relevance (binary yes/no).
 - **Decision** → If documents are irrelevant, trigger **Web Search**; else directly **Generate**.
 - **Web Search** → Perform search using **Tavily API** for updated documents.
 - **Generate** → Generate a final response using the most relevant documents.
@@ -57,10 +58,11 @@ flowchart TD
 ## ⚙️ Technologies Used
 
 - **Python 3.10+**
-- **LangChain** (Core, Graph, Hub)
+- **LangGraph** (Graph-based workflow orchestration)
+- **LangChain** (Core, Hub)
 - **ChromaDB** (Vector database)
 - **OpenAI GPT-4.1-nano** (for text generation)
-- **Google Gemini 2.0 Flash** (for document grading)
+- **Google Gemini 2.0 Flash** (for self-reflective document grading)
 - **Tavily Search API** (for fallback web search)
 
 ---
@@ -70,8 +72,8 @@ flowchart TD
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/RAHULREDDYYSR/C_RAG.git
-cd C_RAG
+git clone https://github.com/RAHULREDDYYSR/SELF-RAG.git
+cd SELF-RAG
 ```
 
 2. **Install dependencies**
@@ -120,7 +122,7 @@ When you run `main.py`, the flow will:
 Example console output:
 
 ```
-===========C_RAG================
+===========SELF_RAG================
 ============RETRIEVE================
 ========CHECK DOCUMENT RELEVANCE TO QUESTION=============
 ============ASSESS GRADED DOCUMENTS===============
@@ -134,7 +136,7 @@ Generated Answer: "Agent memory refers to..."
 ## 🗂️ Project Structure
 
 ```
-C_RAG/
+SELF_RAG/
  ├── graph/
  │    ├── chains/
  │    │    ├── generation.py        # LLM chain for generation
@@ -166,7 +168,8 @@ C_RAG/
 
 ## 🙏 Acknowledgements
 
-- [Corrective Retrieval-Augmented Generation (Paper, 2024)](https://arxiv.org/pdf/2401.15884)
+- [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection (Paper, 2023)](https://arxiv.org/abs/2310.11511)
+- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
 - [LangChain](https://www.langchain.dev/)
 - [Chroma](https://docs.trychroma.com/)
 - [Tavily Search API](https://www.tavily.com/)

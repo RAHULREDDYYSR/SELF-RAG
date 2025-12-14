@@ -1,7 +1,7 @@
-# Self-Reflective Retrieval-Augmented Generation (Self-RAG)
+# Corrective Retrieval-Augmented Generation (C-RAG)
 
-🚀 **Self-RAG** is an implementation of the *Self-Reflective Retrieval-Augmented Generation* (Self-RAG) workflow using **LangGraph**, inspired by the paper [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection (2023)](https://arxiv.org/abs/2310.11511).  
-It intelligently **retrieves**, **grades**, and **generates** high-quality answers through self-reflection, correcting irrelevant retrieved information via web search if necessary.
+🚀 **C-RAG** is an implementation of the *Corrective Retrieval-Augmented Generation* (C-RAG) workflow, inspired by the paper [Corrective Retrieval Augmented Generation (2024)](https://arxiv.org/pdf/2401.15884).  
+It intelligently **retrieves**, **grades**, and **generates** high-quality answers by correcting irrelevant retrieved information via web search if necessary.
 
 ---
 
@@ -22,22 +22,21 @@ It intelligently **retrieves**, **grades**, and **generates** high-quality answe
 
 Traditional Retrieval-Augmented Generation (RAG) systems sometimes retrieve **irrelevant documents**, leading to poor generation quality.
 
-**Self-RAG** enhances this process by:
-- **Self-reflection** to assess the quality and relevance of retrieved documents.
-- **Grading** retrieved documents for relevance using LLM-based evaluation.
+**C-RAG** enhances this process by:
+- **Grading** retrieved documents for relevance.
 - **Performing web search** if necessary to correct irrelevant retrievals.
 - **Generating** a final answer based on the corrected knowledge base.
 
-Additionally, this project uses a **vector store (ChromaDB)** for document storage and retrieval, and **LangGraph** to orchestrate the self-reflective workflow.
+Additionally, this project uses a **vector store (ChromaDB)** for document storage and retrieval.
 
 ---
 
 ## 🧠 Architecture
 
-The project builds a **LangGraph workflow** consisting of the following nodes:
+The project builds a **graph workflow** consisting of the following nodes:
 
 - **Retrieve** → Fetch documents from a vector database (ChromaDB).
-- **Grade Documents** → Self-reflect and grade each document for relevance (binary yes/no).
+- **Grade Documents** → Grade each document for relevance (binary yes/no).
 - **Decision** → If documents are irrelevant, trigger **Web Search**; else directly **Generate**.
 - **Web Search** → Perform search using **Tavily API** for updated documents.
 - **Generate** → Generate a final response using the most relevant documents.
@@ -58,54 +57,52 @@ flowchart TD
 ## ⚙️ Technologies Used
 
 - **Python 3.10+**
-- **LangGraph** (Graph-based workflow orchestration)
-- **LangChain** (Core, Hub)
+- **LangChain** (Core, Graph, Hub)
 - **ChromaDB** (Vector database)
 - **OpenAI GPT-4.1-nano** (for text generation)
-- **Google Gemini 2.0 Flash** (for self-reflective document grading)
+- **Google Gemini 2.0 Flash** (for document grading)
 - **Tavily Search API** (for fallback web search)
 
 ---
 
-## 🔥 Installation
+## 🔧 Setup Instructions
 
-1. **Clone the repository**
-
-```bash
-git clone https://github.com/RAHULREDDYYSR/SELF-RAG.git
-cd SELF-RAG
-```
-
-2. **Install dependencies**
+### 1. Clone the Repository
 
 ```bash
-pipenv install 
+git clone https://github.com/RAHULREDDYYSR/C_RAG.git
+cd C_RAG
 ```
 
-3. **Environment Variables**
+### 2. Install Dependencies
 
-Create a `.env` file with your API keys:
+```bash
+pip install pipenv
+pipenv install
+```
+
+### 3. Set Up Environment Variables
+
+Create a `.env` file in the root directory:
 
 ```env
-OPENAI_API_KEY=your-openai-api-key
-TAVILY_API_KEY=your-tavily-api-key
-GOOGLE_API_KEY=your-google-api-key
+OPENAI_API_KEY=your_openai_key_here
 ```
 
-4. **Run the ingestion (optional first-time)**
+### 4. Ingest Your Documents
 
-If you don't have the Chroma vector store ready, you can run:
+Put your custom `.txt`, `.pdf`, or `.md` files in a `/docs` folder.
+
+Then run:
 
 ```bash
-python ingestion.py
+pipenv run python ingestion.py
 ```
 
-This will download, split, embed, and store documents in local ChromaDB.
-
-5. **Run the main program**
+### 5. Run the Pipeline
 
 ```bash
-python main.py
+pipenv run python main.py
 ```
 
 ---
@@ -122,7 +119,7 @@ When you run `main.py`, the flow will:
 Example console output:
 
 ```
-===========SELF_RAG================
+===========C_RAG================
 ============RETRIEVE================
 ========CHECK DOCUMENT RELEVANCE TO QUESTION=============
 ============ASSESS GRADED DOCUMENTS===============
@@ -136,7 +133,7 @@ Generated Answer: "Agent memory refers to..."
 ## 🗂️ Project Structure
 
 ```
-SELF_RAG/
+C_RAG/
  ├── graph/
  │    ├── chains/
  │    │    ├── generation.py        # LLM chain for generation
@@ -168,8 +165,7 @@ SELF_RAG/
 
 ## 🙏 Acknowledgements
 
-- [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection (Paper, 2023)](https://arxiv.org/abs/2310.11511)
-- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
+- [Corrective Retrieval-Augmented Generation (Paper, 2024)](https://arxiv.org/pdf/2401.15884)
 - [LangChain](https://www.langchain.dev/)
 - [Chroma](https://docs.trychroma.com/)
 - [Tavily Search API](https://www.tavily.com/)

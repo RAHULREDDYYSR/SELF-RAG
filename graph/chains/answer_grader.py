@@ -13,7 +13,7 @@ class GradeAnswer(BaseModel):
     binary_score: str = Field(description="Answer is correct, 'yes' or 'no'")
 
 
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(model="gpt-4.1-nano")
 structured_llm_grader = llm.with_structured_output(GradeAnswer)
 
 system = """you are a grader assessing whether an answer addresses / resolves a question. \n
